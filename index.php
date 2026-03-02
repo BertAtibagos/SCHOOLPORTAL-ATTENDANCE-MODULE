@@ -15,14 +15,8 @@
 
 <div class="container py-4">
     <div class="card p-3 mb-4 shadow-sm">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label">Subject</label>
-                <select class="form-select">
-                    <option>Current Cut Off</option>
-                    <option>Previous Cut Off</option>
-                </select>
-            </div>
+        <div class="row g-3" id="subjectFilter">
+           
 
             <!-- <div class="col-md-4">
                 <label class="form-label">Start Date</label>

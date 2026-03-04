@@ -45,5 +45,5 @@
 
 </body>
 
-<script type="module" src="view/index-script.js?t=<?php echo time(); ?>"></script>
+<script type="module" src="view/component-loader.js?t=<?php echo time(); ?>"></script>
 </html>

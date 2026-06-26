@@ -1,5 +1,7 @@
 import { tableComponent } from '../components/record-cards.js';
 import { subjectFilterComponent } from '../components/subject-filter.js';
+import { dateFilterComponent } from '../components/date-filter.js';
+import { buttonComponent } from '../components/button.js';
 
 const attendance = document.getElementById('attndnc_logs_card');
 
@@ -7,13 +9,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const subjectFilter = document.getElementById('subjectFilter');
     
     if (attendance && subjectFilter) {
-        attendance.innerHTML = await tableComponent();
         subjectFilter.innerHTML = await subjectFilterComponent();
+        subjectFilter.innerHTML += await dateFilterComponent();
+        subjectFilter.innerHTML += await buttonComponent("Search");
+        attendance.innerHTML = await tableComponent();
 
-        document.getElementById('subjectSelect').addEventListener('change', async (e)=>{
-            const selectedSubject = e.target.value;
+        const selectedSubject = document.getElementById('subjectSelect').value
 
-            attendance.innerHTML = await tableComponent(selectedSubject);
+        document.getElementById('searchButton').addEventListener('click', async (e)=>{
+            const dateFilterStart = document.getElementById('dateFilterStart').value;
+            const dateFilterEnd = document.getElementById('dateFilterEnd').value;
+
+            if(dateFilterStart && dateFilterEnd){
+                 attendance.innerHTML = await tableComponent(selectedSubject, dateFilterStart, dateFilterEnd);
+            }
         });
     }
 });

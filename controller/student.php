@@ -1,12 +1,14 @@
 <?php
+session_start();
 require('../config/conn-config.php');
 
 $type = $_POST['type'];
+$fetch = [];
 
 if($type == "FETCH_ATTENDANCE_LOGS"){
 
-    // $USERID = $_SESSION['STUDENT']['ID'];
-    $USERID = 1;
+    $USERID = $_SESSION['STUDENT']['ID'];
+    // $USERID = 1;
     $subjId = $_POST['subjectId'] ?? null;
 
     $filter = "";
@@ -20,11 +22,9 @@ if($type == "FETCH_ATTENDANCE_LOGS"){
     }
 
     if (isset($_POST['dateStart']) && isset($_POST['dateEnd'])) {
-        $startDate = $_POST['dateStart'];
-        $endDate = $_POST['dateEnd'];
         $filter .= " AND DATE(log_hist.SchlClsLogHis_DATETIME) BETWEEN ? AND ?";
-        $value[] = $startDate;
-        $value[] = $endDate;
+        $value[] = $_POST['dateStart'];
+        $value[] = $_POST['dateEnd'];
         $bind .= "ss";
     }
     
@@ -60,15 +60,15 @@ if($type == "FETCH_ATTENDANCE_LOGS"){
 
 if ($type === 'GET_SUBJECT_LIST') {
 
-    // $USERID = $_SESSION['STUDENT']['ID'];
-    // $LVLID  = $_SESSION['STUDENT']['LVLID'];
-    // $YRID   = $_SESSION['STUDENT']['YRID'];
-    // $PRDID  = $_SESSION['STUDENT']['PRDID'];
+    $USERID = $_SESSION['STUDENT']['ID'];
+    $LVLID  = $_SESSION['STUDENT']['LVLID'];
+    $YRID   = $_SESSION['STUDENT']['YRID'];
+    $PRDID  = $_SESSION['STUDENT']['PRDID'];
 
-    $USERID = 957;
-    $LVLID  = 2;
-    $YRID   = 19;
-    $PRDID  = 6;
+    // $USERID = 957;
+    // $LVLID  = 2;
+    // $YRID   = 19;
+    // $PRDID  = 6;
 
     $qry_get_subj_list = "SELECT `schl_enr_as`.`SchlAcadSubj_ID` AS `schl_acad_subj_id`
                           FROM `schoolstudent` `schl_stud`
